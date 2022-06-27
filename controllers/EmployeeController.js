@@ -1,11 +1,11 @@
-var mongoose = require("mongoose");
-var Employee = require("../models/Employee");
+const mongoose = require("mongoose");
+const Employee = require("../models/Employee");
 
-var employeeController = {};
+const employeeController = {};
 
 // Show list of employees
-employeeController.list = function(req, res) {
-  Employee.find({}).exec(function (err, employees) {
+employeeController.list = (req, res) => {
+  Employee.find({}).exec((err, employees) => {
     if (err) {
       console.log("Error:", err);
     }
@@ -16,8 +16,8 @@ employeeController.list = function(req, res) {
 };
 
 // Show employee by id
-employeeController.show = function(req, res) {
-  Employee.findOne({_id: req.params.id}).exec(function (err, employee) {
+employeeController.show = (req, res) => {
+  Employee.findOne({_id: req.params.id}).exec((err, employee) => {
     if (err) {
       console.log("Error:", err);
     }
@@ -28,15 +28,15 @@ employeeController.show = function(req, res) {
 };
 
 // Create new employee
-employeeController.create = function(req, res) {
+employeeController.create = (req, res) => {
   res.render("../views/employees/create");
 };
 
 // Save new employee
-employeeController.save = function(req, res) {
-  var employee = new Employee(req.body);
+employeeController.save = (req, res) => {
+  const employee = new Employee(req.body);
 
-  employee.save(function(err) {
+  employee.save((err) => {
     if(err) {
       console.log(err);
       res.render("../views/employees/create");
@@ -48,8 +48,8 @@ employeeController.save = function(req, res) {
 };
 
 // Edit an employee
-employeeController.edit = function(req, res) {
-  Employee.findOne({_id: req.params.id}).exec(function (err, employee) {
+employeeController.edit = (req, res) => {
+  Employee.findOne({_id: req.params.id}).exec((err, employee) => {
     if (err) {
       console.log("Error:", err);
     }
@@ -60,7 +60,7 @@ employeeController.edit = function(req, res) {
 };
 
 // Update an employee
-employeeController.update = function(req, res) {
+employeeController.update = (req, res) => {
   Employee.findByIdAndUpdate(req.params.id, { $set: { name: req.body.name, address: req.body.address, position: req.body.position, salary: req.body.salary }}, { new: true }, function (err, employee) {
     if (err) {
       console.log(err);
@@ -71,9 +71,9 @@ employeeController.update = function(req, res) {
 };
 
 // Delete an employee
-employeeController.delete = function(req, res) {
-  Employee.remove({_id: req.params.id}, function(err) {
-    if(err) {
+employeeController.delete = (req, res) => {
+  Employee.remove({_id: req.params.id}, (err) => {
+    if (err) {
       console.log(err);
     }
     else {
